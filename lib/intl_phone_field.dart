@@ -433,7 +433,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                  SizedBox(width: 8,)
+                  SizedBox(width: 8,),
                 if (widget.showCountryFlag) ...[
                   Image.asset(
                     'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
