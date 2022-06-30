@@ -124,12 +124,7 @@ class IntlPhoneField extends StatefulWidget {
   /// This property can be used to pre-fill the field.
   final String? initialValue;
 
-  /// 2 letter ISO Code or country dial code.
-  ///
-  /// ```dart
-  /// initialCountryCode: 'IN', // India
-  /// initialCountryCode: '+225', // Côte d'Ivoire
-  /// ```
+  /// 2 Letter ISO Code
   final String? initialCountryCode;
 
   /// List of 2 Letter ISO Codes of countries to show. Defaults to showing the inbuilt list of all countries.
@@ -314,9 +309,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       number = number.substring(_selectedCountry.dialCode.length);
     } else {
       _selectedCountry = _countryList.firstWhere(
-          (country) =>
-              '+${country.dialCode}' == widget.initialCountryCode ||
-              country.code == widget.initialCountryCode,
+          (item) => item.code == (widget.initialCountryCode ?? 'US'),
           orElse: () => _countryList.first);
     }
 
@@ -440,12 +433,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                if (widget.enabled &&
-                    widget.showDropdownIcon &&
-                    widget.dropdownIconPosition == IconPosition.leading) ...[
-                  widget.dropdownIcon,
-                  SizedBox(width: 4),
-                ],
+                  SizedBox(width: 8,)
                 if (widget.showCountryFlag) ...[
                   Image.asset(
                     'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
@@ -454,19 +442,13 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                   ),
                   SizedBox(width: 8),
                 ],
-                FittedBox(
-                  child: Text(
-                    '+${_selectedCountry.dialCode}',
-                    style: widget.dropdownTextStyle,
-                  ),
-                ),
                 if (widget.enabled &&
                     widget.showDropdownIcon &&
-                    widget.dropdownIconPosition == IconPosition.trailing) ...[
-                  SizedBox(width: 4),
+                    widget.dropdownIconPosition == IconPosition.leading) ...[
                   widget.dropdownIcon,
+                  SizedBox(width: 8),
                 ],
-                SizedBox(width: 8),
+                
               ],
             ),
           ),
